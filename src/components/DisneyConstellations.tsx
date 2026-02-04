@@ -70,10 +70,13 @@ export const DisneyConstellations = () => {
         { x: 15, y: 15, size: 2, alpha: 0.6, twinkleSpeed: 0.02, twinklePhase: 1.8 },
       ].slice(0, count);
 
+      const allConnections: [number, number][] = [[0,1], [1,2], [0,2], [3,4], [4,5], [3,5], [6,7], [7,10], [10,11], [11,8], [8,6], [7,9], [9,12], [12,13], [13,14], [14,11], [0,7], [3,8]];
+      const validConnections = allConnections.filter(([a, b]) => a < stars.length && b < stars.length);
+      
       return {
         name: 'mickey',
         stars: stars.map(s => ({ ...s, x: centerX + s.x * scale, y: centerY + s.y * scale })),
-        connections: [[0,1], [1,2], [0,2], [3,4], [4,5], [3,5], [6,7], [7,10], [10,11], [11,8], [8,6], [7,9], [9,12], [12,13], [13,14], [14,11], [0,7], [3,8]],
+        connections: validConnections,
         color: '#FFD700',
       };
     };
@@ -95,10 +98,13 @@ export const DisneyConstellations = () => {
         { x: 0, y: -5, size: 2.8, alpha: 0.85, twinkleSpeed: 0.04, twinklePhase: 0 },
       ].slice(0, count);
 
+      const allConnections: [number, number][] = [[0,1], [1,2], [2,3], [3,4], [0,5], [5,6], [6,7], [7,8], [8,9], [9,4], [5,10], [6,10], [7,10], [8,10], [9,10]];
+      const validConnections = allConnections.filter(([a, b]) => a < stars.length && b < stars.length);
+      
       return {
         name: 'crown',
         stars: stars.map(s => ({ ...s, x: centerX + s.x * scale, y: centerY + s.y * scale })),
-        connections: [[0,1], [1,2], [2,3], [3,4], [0,5], [5,6], [6,7], [7,8], [8,9], [9,4], [5,10], [6,10], [7,10], [8,10], [9,10]],
+        connections: validConnections,
         color: '#FF69B4',
       };
     };
@@ -121,10 +127,13 @@ export const DisneyConstellations = () => {
         { x: 0, y: -55, size: 2.5, alpha: 0.7, twinkleSpeed: 0.028, twinklePhase: 1.2 },
       ].slice(0, count);
 
+      const allConnections: [number, number][] = [[0,1], [1,2], [2,3], [2,4], [2,5], [2,6], [5,6], [2,7], [7,8], [8,9], [9,10], [10,11]];
+      const validConnections = allConnections.filter(([a, b]) => a < stars.length && b < stars.length);
+      
       return {
         name: 'lightsaber',
         stars: stars.map(s => ({ ...s, x: centerX + s.x * scale, y: centerY + s.y * scale })),
-        connections: [[0,1], [1,2], [2,3], [2,4], [2,5], [2,6], [5,6], [2,7], [7,8], [8,9], [9,10], [10,11]],
+        connections: validConnections,
         color: '#60A5FA',
       };
     };
@@ -199,6 +208,7 @@ export const DisneyConstellations = () => {
         constellation.connections.forEach(([start, end]) => {
           const s = constellation.stars[start];
           const e = constellation.stars[end];
+          if (!s || !e) return; // Safety check
           ctx.beginPath();
           ctx.moveTo(s.x + offsetX, s.y + offsetY);
           ctx.lineTo(e.x + offsetX, e.y + offsetY);
