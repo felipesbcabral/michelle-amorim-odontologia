@@ -1,0 +1,371 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   DRA. MICHELLE AMORIM - DESIGN SYSTEM
+   Tema: Disney Magic + Tech Sci-Fi
+   ======================================== */
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Cursor padrão do sistema */
+  html, body {
+    cursor: auto;
+  }
+
+  body {
+    @apply font-body antialiased;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Scrollbar mágica */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0f172a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #FFD700, #8B5CF6, #3B82F6);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #FFF8DC, #A78BFA, #60A5FA);
+  }
+
+  /* Seleção de texto dourada */
+  ::selection {
+    background: rgba(255, 215, 0, 0.3);
+    color: #FFF8DC;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  }
+}
+
+@layer components {
+  /* ========================================
+     GLASSMORPHISM PREMIUM
+     ======================================== */
+  .glass {
+    @apply backdrop-blur-xl bg-white/5 border border-white/10;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-strong {
+    @apply backdrop-blur-2xl bg-white/10 border border-white/20;
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-card {
+    @apply backdrop-blur-lg bg-white/5 border border-white/10 rounded-3xl;
+    box-shadow: 
+      0 4px 30px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card:hover {
+    @apply bg-white/10 border-white/20;
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.4),
+      0 0 40px rgba(255, 215, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px);
+  }
+
+  /* ========================================
+     GLOW EFFECTS - MÁGICOS
+     ======================================== */
+  .glow-purple {
+    box-shadow: 
+      0 0 20px rgba(139, 92, 246, 0.4),
+      0 0 40px rgba(139, 92, 246, 0.2),
+      0 0 60px rgba(139, 92, 246, 0.1);
+  }
+
+  .glow-blue {
+    box-shadow: 
+      0 0 20px rgba(59, 130, 246, 0.4),
+      0 0 40px rgba(59, 130, 246, 0.2),
+      0 0 60px rgba(59, 130, 246, 0.1);
+  }
+
+  .glow-gold {
+    box-shadow: 
+      0 0 20px rgba(255, 215, 0, 0.5),
+      0 0 40px rgba(255, 215, 0, 0.3),
+      0 0 60px rgba(255, 215, 0, 0.2);
+  }
+
+  .glow-pink {
+    box-shadow: 
+      0 0 20px rgba(255, 105, 180, 0.4),
+      0 0 40px rgba(255, 105, 180, 0.2),
+      0 0 60px rgba(255, 105, 180, 0.1);
+  }
+
+  .text-glow {
+    text-shadow: 
+      0 0 10px rgba(255, 215, 0, 0.5),
+      0 0 20px rgba(255, 215, 0, 0.3),
+      0 0 30px rgba(255, 105, 180, 0.2);
+  }
+
+  .text-glow-purple {
+    text-shadow: 
+      0 0 10px rgba(168, 85, 247, 0.5),
+      0 0 20px rgba(168, 85, 247, 0.3),
+      0 0 30px rgba(168, 85, 247, 0.2);
+  }
+
+  /* ========================================
+     GRADIENTES AURORA BOREAL
+     ======================================== */
+  .gradient-aurora {
+    background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #FFD700 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  .gradient-princess {
+    background: linear-gradient(135deg, #FF69B4 0%, #8B5CF6 50%, #3B82F6 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 10s ease infinite;
+  }
+
+  .gradient-royal {
+    background: linear-gradient(135deg, #1E3A8A 0%, #7C3AED 50%, #FFD700 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 12s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      #60a5fa 0%,
+      #a78bfa 25%,
+      #FFD700 50%,
+      #FF69B4 75%,
+      #60a5fa 100%
+    );
+    background-size: 400% 400%;
+    animation: gradient-x 8s ease infinite;
+  }
+
+  .gradient-text-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      #FFD700 0%,
+      #FFF8DC 25%,
+      #FFD700 50%,
+      #FFA500 75%,
+      #FFD700 100%
+    );
+    background-size: 200% 200%;
+    animation: shimmer 3s ease infinite;
+  }
+
+  /* ========================================
+     BOTÃO MÁGICO DISNEY
+     ======================================== */
+  .btn-magic {
+    @apply relative overflow-hidden px-8 py-4 rounded-full font-semibold text-white;
+    background: linear-gradient(135deg, #3B82F6, #8B5CF6, #FFD700);
+    background-size: 200% 200%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+      0 4px 15px rgba(59, 130, 246, 0.4),
+      0 0 30px rgba(255, 215, 0, 0.2);
+  }
+
+  .btn-magic::before {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(135deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+
+  .btn-magic:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+      0 8px 30px rgba(139, 92, 246, 0.6),
+      0 0 50px rgba(255, 215, 0, 0.4);
+    animation: gradient-shift 2s ease infinite;
+  }
+
+  .btn-magic:hover::before {
+    transform: translateX(100%);
+  }
+
+  .btn-princess {
+    @apply relative overflow-hidden px-8 py-4 rounded-full font-semibold text-white;
+    background: linear-gradient(135deg, #FF69B4, #8B5CF6);
+    background-size: 200% 200%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+      0 4px 15px rgba(255, 105, 180, 0.4),
+      0 0 30px rgba(139, 92, 246, 0.2);
+  }
+
+  .btn-princess:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+      0 8px 30px rgba(255, 105, 180, 0.6),
+      0 0 50px rgba(139, 92, 246, 0.4);
+  }
+
+  /* ========================================
+     BLOB ANIMADOS MÁGICOS
+     ======================================== */
+  .blob {
+    @apply absolute rounded-full blur-3xl opacity-30;
+    filter: blur(80px);
+  }
+
+  .blob-1 {
+    background: linear-gradient(135deg, #3b82f6, #8B5CF6);
+    animation: float 10s ease-in-out infinite;
+  }
+
+  .blob-2 {
+    background: linear-gradient(135deg, #FFD700, #FF69B4);
+    animation: float 12s ease-in-out 2s infinite;
+  }
+
+  .blob-3 {
+    background: linear-gradient(135deg, #06b6d4, #8B5CF6);
+    animation: float 8s ease-in-out 1s infinite;
+  }
+
+  /* ========================================
+     GRID PATTERN E BACKGROUNDS
+     ======================================== */
+  .grid-pattern {
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .stars-bg {
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, rgba(255,215,0,0.3), transparent),
+      radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.2), transparent),
+      radial-gradient(1px 1px at 90px 40px, rgba(255,105,180,0.3), transparent),
+      radial-gradient(2px 2px at 160px 120px, rgba(139,92,246,0.3), transparent);
+    background-repeat: repeat;
+    background-size: 200px 200px;
+  }
+
+  /* ========================================
+     BREAKING GRID - ELEMENTOS QUE VAZAM
+     ======================================== */
+  .break-top {
+    transform: translateY(-30%);
+    z-index: 10;
+  }
+
+  .break-bottom {
+    transform: translateY(30%);
+    z-index: 10;
+  }
+
+  .break-left {
+    transform: translateX(-20%);
+    z-index: 10;
+  }
+
+  .break-right {
+    transform: translateX(20%);
+    z-index: 10;
+  }
+
+  /* ========================================
+     UTILITÁRIOS 3D
+     ======================================== */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  /* ========================================
+     Z-INDEX SCALE
+     ======================================== */
+  .z-behind { z-index: -1; }
+  .z-base { z-index: 0; }
+  .z-elevated { z-index: 10; }
+  .z-floating { z-index: 20; }
+  .z-overlay { z-index: 30; }
+  .z-modal { z-index: 40; }
+  .z-cursor { z-index: 9999; }
+  .z-top { z-index: 50; }
+}
+
+@layer utilities {
+  /* ========================================
+     ANIMAÇÕES ESPECIAIS
+     ======================================== */
+  .animate-float-gentle {
+    animation: float-gentle 6s ease-in-out infinite;
+  }
+
+  @keyframes float-gentle {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+  }
+
+  .animate-sparkle {
+    animation: sparkle-animation 2s ease-in-out infinite;
+  }
+
+  @keyframes sparkle-animation {
+    0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1) rotate(180deg); }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255,215,0,0) 0%,
+      rgba(255,215,0,0.4) 50%,
+      rgba(255,215,0,0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  .text-shadow-glow {
+    text-shadow: 0 0 20px currentColor;
+  }
+}
