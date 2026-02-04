@@ -141,6 +141,7 @@ export const HeroSection = ({ onAgendarClick }: HeroSectionProps) => {
               <MagicButton 
                 variant="secondary" 
                 className="text-sm md:text-base"
+                onClick={() => document.getElementById('worlds')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Conheça os Mundos
               </MagicButton>
