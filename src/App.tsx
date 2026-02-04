@@ -28,7 +28,7 @@ function App() {
   const closeTicketModal = () => setIsTicketModalOpen(false);
 
   return (
-    <div className="relative min-h-screen bg-royal-950 overflow-x-hidden">
+    <div className="relative min-h-screen overflow-x-hidden bg-royal-950">
       {/* Loading Screen */}
       <LoadingScreen />
 
@@ -38,17 +38,22 @@ function App() {
         onClose={closeTicketModal} 
       />
 
+      {/* Background Gradient - cobre toda a página */}
+      <div 
+        className="fixed inset-0 z-0 bg-gradient-to-br from-royal-950 via-indigo-950 to-purple-950"
+        style={{ minHeight: '100vh' }}
+      />
+      
       {/* Disney Constellations Background */}
       <DisneyConstellations />
 
       {/* Sound Toggle */}
       <SoundToggle />
 
-      {/* Background Layers */}
-      <div className="fixed inset-0 bg-gradient-to-br from-royal-950 via-indigo-950 to-purple-950 z-0" />
+      {/* Additional Background Effects */}
       <FloatingParticles />
-      <div className="fixed inset-0 grid-pattern opacity-30 z-0" />
-      <div className="fixed inset-0 stars-bg opacity-40 z-0" />
+      <div className="fixed inset-0 grid-pattern opacity-30 z-0 pointer-events-none" />
+      <div className="fixed inset-0 stars-bg opacity-40 z-0 pointer-events-none" />
 
       {/* Main Content */}
       <div className="relative z-10">
