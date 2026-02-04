@@ -40,8 +40,10 @@ function App() {
 
       {/* Background Gradient - cobre toda a página */}
       <div 
-        className="fixed inset-0 z-0 bg-gradient-to-br from-royal-950 via-indigo-950 to-purple-950"
-        style={{ minHeight: '100vh' }}
+        className="fixed inset-0 z-0"
+        style={{ 
+          background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%)',
+        }}
       />
       
       {/* Disney Constellations Background */}
@@ -50,10 +52,12 @@ function App() {
       {/* Sound Toggle */}
       <SoundToggle />
 
-      {/* Additional Background Effects */}
-      <FloatingParticles />
-      <div className="fixed inset-0 grid-pattern opacity-30 z-0 pointer-events-none" />
-      <div className="fixed inset-0 stars-bg opacity-40 z-0 pointer-events-none" />
+      {/* Additional Background Effects - behind content */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <FloatingParticles />
+        <div className="absolute inset-0 grid-pattern opacity-30" />
+        <div className="absolute inset-0 stars-bg opacity-40" />
+      </div>
 
       {/* Main Content */}
       <div className="relative z-10">
@@ -105,11 +109,11 @@ function App() {
       {/* WhatsApp FAB */}
       <WhatsAppFAB />
 
-      {/* Vignette Overlay */}
+      {/* Vignette Overlay - very subtle */}
       <div 
         className="fixed inset-0 pointer-events-none z-20"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 0%, rgba(15, 23, 42, 0.4) 100%)'
+          background: 'radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(15, 23, 42, 0.2) 100%)'
         }}
       />
     </div>
