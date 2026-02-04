@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { Sparkles, Star, ArrowRight, Castle, Crown, Wand2, Heart } from 'lucide-react';
 import { MagicButton } from './MagicButton';
+import { MagicSparkles } from './MagicSparkles';
 
 interface HeroSectionProps {
   onAgendarClick?: () => void;
@@ -33,6 +34,11 @@ export const HeroSection = ({ onAgendarClick }: HeroSectionProps) => {
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 py-20 md:py-0"
     >
+      {/* Magic Sparkles Rain - Subtle magical effect */}
+      <div className="absolute inset-0 pointer-events-none opacity-60">
+        <MagicSparkles density="low" colors={['#FFD700', '#FFA500', '#FF69B4', '#87CEEB', '#DDA0DD']} />
+      </div>
+
       {/* Background Icons - Hidden on small mobile */}
       <div className="absolute inset-0 pointer-events-none hidden sm:block">
         {disneyIcons.map(({ Icon, x, y, delay, size }, index) => (

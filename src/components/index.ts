@@ -18,3 +18,4 @@ export { DisneyConstellations } from './DisneyConstellations';
 export { SoundToggle } from './SoundToggle';
 export { MagicTicketModal } from './MagicTicketModal';
 export { LoadingScreen } from './LoadingScreen';
+export { MagicSparkles } from './MagicSparkles';

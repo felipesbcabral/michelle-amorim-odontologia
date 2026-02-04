@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Sword, Castle, Gamepad2, Palmtree, ArrowUpRight } from 'lucide-react';
+import { Sword, Castle, Gamepad2, Palmtree, ArrowUpRight, Sparkles, Crown, Wand2, Star } from 'lucide-react';
 
 interface World {
   id: string;
@@ -11,6 +11,7 @@ interface World {
   image: string;
   color: 'purple' | 'blue' | 'gold' | 'orange';
   features: string[];
+  isDisney?: boolean;
 }
 
 const worlds: World[] = [
@@ -32,7 +33,8 @@ const worlds: World[] = [
     icon: <Castle className="w-5 h-5 md:w-6 md:h-6" />,
     image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80',
     color: 'blue',
-    features: ['Princesas', 'Bonecos', 'Mágica Real'],
+    features: ['Princesas', 'Bonecos', 'Mágica Real', 'Netflix/Disney+'],
+    isDisney: true,
   },
   {
     id: 'safari',
@@ -56,9 +58,42 @@ const worlds: World[] = [
   },
 ];
 
+// Componente de partículas mágicas para o card Disney
+const DisneyMagicParticles = ({ isActive }: { isActive: boolean }) => {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute"
+          style={{
+            left: `${15 + i * 15}%`,
+            top: `${20 + (i % 3) * 25}%`,
+          }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={isActive ? { 
+            opacity: [0, 1, 0],
+            scale: [0, 1, 0],
+            y: [0, -30, -60],
+          } : { opacity: 0 }}
+          transition={{
+            duration: 2,
+            delay: i * 0.3,
+            repeat: Infinity,
+            repeatDelay: 1,
+          }}
+        >
+          <Sparkles className="w-3 h-3 text-yellow-300" />
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
 const WorldCard = ({ world, index }: { world: World; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const isDisney = world.isDisney;
 
   const colorGradients = {
     purple: 'from-purple-600/90 via-purple-900/80 to-slate-950/95',
@@ -73,6 +108,9 @@ const WorldCard = ({ world, index }: { world: World; index: number }) => {
     gold: 'shadow-[0_0_40px_rgba(251,191,36,0.4)] md:shadow-[0_0_60px_rgba(251,191,36,0.4)]',
     orange: 'shadow-[0_0_40px_rgba(249,115,22,0.4)] md:shadow-[0_0_60px_rgba(249,115,22,0.4)]',
   };
+
+  // Gradient especial para Disney com mais dourado/mágico
+  const disneyGradient = 'from-blue-500/90 via-purple-600/80 via-pink-500/70 to-slate-950/95';
 
   return (
     <motion.div
@@ -89,6 +127,7 @@ const WorldCard = ({ world, index }: { world: World; index: number }) => {
           relative h-[350px] sm:h-[400px] md:h-[450px] rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer
           transition-all duration-500
           ${isHovered ? glowColors[world.color] : ''}
+          ${isDisney ? 'ring-2 ring-yellow-400/30 ring-offset-2 ring-offset-transparent' : ''}
         `}
       >
         {/* Background Image */}
@@ -103,13 +142,30 @@ const WorldCard = ({ world, index }: { world: World; index: number }) => {
           
           <div 
             className={`
-              absolute inset-0 bg-gradient-to-t ${colorGradients[world.color]}
+              absolute inset-0 bg-gradient-to-t ${isDisney ? disneyGradient : colorGradients[world.color]}
               transition-opacity duration-500
               ${isHovered ? 'opacity-95' : 'opacity-90'}
             `}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
         </div>
+
+        {/* Magic particles for Disney card */}
+        {isDisney && <DisneyMagicParticles isActive={isHovered || isMobile} />}
+
+        {/* Special Disney crown decoration */}
+        {isDisney && (
+          <motion.div
+            className="absolute top-4 right-4 z-20"
+            animate={{ 
+              rotate: [0, 10, -10, 0],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{ duration: 4, repeat: Infinity }}
+          >
+            <Crown className="w-5 h-5 text-yellow-400/60" />
+          </motion.div>
+        )}
 
         {/* Grid pattern */}
         <div 
@@ -139,13 +195,16 @@ const WorldCard = ({ world, index }: { world: World; index: number }) => {
             <motion.div
               className={`
                 w-11 h-11 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center
-                backdrop-blur-md bg-white/10 border border-white/20
+                backdrop-blur-md border
+                ${isDisney ? 'bg-gradient-to-br from-yellow-400/20 to-pink-500/20 border-yellow-400/40' : 'bg-white/10 border-white/20'}
                 ${isHovered ? 'bg-white/20' : ''}
                 transition-all duration-300
               `}
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <span className="text-white">{world.icon}</span>
+              <span className={`${isDisney ? 'text-yellow-300' : 'text-white'}`}>
+                {isDisney ? <Wand2 className="w-5 h-5 md:w-6 md:h-6" /> : world.icon}
+              </span>
             </motion.div>
             
             <motion.div
@@ -159,10 +218,10 @@ const WorldCard = ({ world, index }: { world: World; index: number }) => {
           {/* Body */}
           <div>
             <motion.p 
-              className="text-white/60 text-xs md:text-sm mb-1 md:mb-2 uppercase tracking-wider"
+              className={`text-xs md:text-sm mb-1 md:mb-2 uppercase tracking-wider ${isDisney ? 'text-yellow-300/80' : 'text-white/60'}`}
               animate={{ opacity: isHovered ? 1 : 0.7 }}
             >
-              {world.subtitle}
+              {isDisney ? '✨ Reino Mágico' : world.subtitle}
             </motion.p>
             
             <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 md:mb-3">
@@ -184,7 +243,12 @@ const WorldCard = ({ world, index }: { world: World; index: number }) => {
               {world.features.map((feature, i) => (
                 <motion.span
                   key={i}
-                  className="px-2.5 py-1 md:px-3 md:py-1.5 rounded-full text-[10px] md:text-xs font-medium backdrop-blur-sm bg-white/10 text-white/80 border border-white/10"
+                  className={`
+                    px-2.5 py-1 md:px-3 md:py-1.5 rounded-full text-[10px] md:text-xs font-medium backdrop-blur-sm border
+                    ${isDisney 
+                      ? 'bg-gradient-to-r from-yellow-400/20 to-pink-500/20 text-yellow-100 border-yellow-400/30' 
+                      : 'bg-white/10 text-white/80 border-white/10'}
+                  `}
                   initial={false}
                   animate={{ 
                     y: isHovered ? 0 : 5,
@@ -192,13 +256,41 @@ const WorldCard = ({ world, index }: { world: World; index: number }) => {
                   }}
                   transition={{ delay: i * 0.05 }}
                 >
+                  {isDisney && i === 0 && <Star className="w-3 h-3 inline mr-1" />}
                   {feature}
                 </motion.span>
               ))}
             </div>
           </div>
         </div>
+
+        {/* Disney special glow at bottom */}
+        {isDisney && (
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"
+            animate={{ 
+              opacity: [0.3, 0.8, 0.3],
+              scaleX: [0.8, 1, 0.8]
+            }}
+            transition={{ duration: 3, repeat: Infinity }}
+          />
+        )}
       </div>
+
+      {/* Disney badge */}
+      {isDisney && (
+        <motion.div
+          className="absolute -top-3 -right-3 z-20 px-3 py-1 rounded-full bg-gradient-to-r from-yellow-400 to-pink-500 text-white text-xs font-bold shadow-lg"
+          animate={{ 
+            scale: [1, 1.05, 1],
+            rotate: [0, 2, -2, 0]
+          }}
+          transition={{ duration: 4, repeat: Infinity }}
+        >
+          <Sparkles className="w-3 h-3 inline mr-1" />
+          Mais Popular
+        </motion.div>
+      )}
     </motion.div>
   );
 };

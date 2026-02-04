@@ -19,7 +19,7 @@ export const MagicButton = ({
 }: MagicButtonProps) => {
   const { playClick, playHover, initAudio } = useMagicSound();
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = () => {
     initAudio(); // Inicializa áudio na primeira interação
     playClick();
     onClick?.();
