@@ -37,50 +37,30 @@ export const MagicTicketModal = ({ isOpen, onClose }: MagicTicketModalProps) => 
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop - simplified for mobile */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
-            style={{
-              background: 'rgba(15, 23, 42, 0.85)',
-              backdropFilter: 'blur(8px)',
-            }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/90 md:backdrop-blur-sm"
             onClick={onClose}
           >
-            {/* Ticket Container */}
+            {/* Ticket Container - simpler animation for mobile */}
             <motion.div
-              initial={{ scale: 0.5, opacity: 0, y: 50 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.8, opacity: 0, y: 30 }}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
               transition={{ 
-                type: "spring",
-                stiffness: 300,
-                damping: 25,
-                delay: 0.1
+                duration: 0.25,
+                ease: "easeOut"
               }}
               className="relative w-full max-w-md"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Outer Glow Effect */}
-              <motion.div
-                className="absolute -inset-1 rounded-3xl"
-                style={{
-                  background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
-                  filter: 'blur(20px)',
-                  opacity: 0.4,
-                }}
-                animate={{
-                  opacity: [0.3, 0.6, 0.3],
-                  scale: [1, 1.02, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+              {/* Outer Glow Effect - static on mobile */}
+              <div
+                className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-400 opacity-40 blur-xl"
               />
 
               {/* Main Ticket Card */}
@@ -107,108 +87,55 @@ export const MagicTicketModal = ({ isOpen, onClose }: MagicTicketModalProps) => 
                 {/* Content */}
                 <div className="p-6 md:p-8 text-center">
                   
-                  {/* Animated Icon */}
+                  {/* Animated Icon - simplified for mobile */}
                   <div className="relative w-24 h-24 mx-auto mb-6">
-                    {/* Outer rotating ring */}
-                    <motion.div
-                      className="absolute inset-0 rounded-full border-2 border-dashed border-yellow-400/30"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    />
-                    
-                    {/* Middle ring */}
-                    <motion.div
-                      className="absolute inset-2 rounded-full border border-amber-500/20"
-                      animate={{ rotate: -360 }}
-                      transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                    />
+                    {/* Static rings - no rotation on mobile */}
+                    <div className="absolute inset-0 rounded-full border-2 border-dashed border-yellow-400/30 animate-[spin_20s_linear_infinite]" />
+                    <div className="absolute inset-2 rounded-full border border-amber-500/20 animate-[spin_15s_linear_infinite_reverse]" />
 
-                    {/* Icon Container */}
-                    <motion.div
-                      className="absolute inset-4 rounded-2xl bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-500 flex items-center justify-center"
-                      animate={{ 
-                        boxShadow: [
-                          '0 0 20px rgba(255, 215, 0, 0.4)',
-                          '0 0 40px rgba(255, 215, 0, 0.6)',
-                          '0 0 20px rgba(255, 215, 0, 0.4)',
-                        ]
-                      }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
+                    {/* Icon Container - simplified animation */}
+                    <div className="absolute inset-4 rounded-2xl bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-500 flex items-center justify-center shadow-[0_0_30px_rgba(255,215,0,0.5)]">
                       <motion.div
-                        animate={{ y: [0, -5, 0], rotate: [0, 5, 0] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                        animate={{ y: [0, -3, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                       >
                         <Rocket className="w-10 h-10 text-white" />
                       </motion.div>
-                    </motion.div>
+                    </div>
 
-                    {/* Sparkles */}
-                    <motion.div
-                      className="absolute -top-2 -right-2"
-                      animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
+                    {/* Static sparkles */}
+                    <div className="absolute -top-2 -right-2 animate-pulse">
                       <Sparkles className="w-6 h-6 text-yellow-300" />
-                    </motion.div>
-                    <motion.div
-                      className="absolute -bottom-1 -left-1"
-                      animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
-                      transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
-                    >
+                    </div>
+                    <div className="absolute -bottom-1 -left-1 animate-pulse delay-300">
                       <Star className="w-5 h-5 text-amber-300" />
-                    </motion.div>
+                    </div>
                   </div>
 
-                  {/* Badge */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-500/20 border border-green-500/30 mb-4"
-                  >
+                  {/* Badge - static */}
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-500/20 border border-green-500/30 mb-4">
                     <Shield className="w-3.5 h-3.5 text-green-400" />
                     <span className="text-green-400 text-xs font-semibold uppercase tracking-wider">Autorizado</span>
-                  </motion.div>
+                  </div>
 
                   {/* Title */}
-                  <motion.h2
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="font-display text-2xl md:text-3xl font-bold mb-2"
-                  >
+                  <h2 className="font-display text-2xl md:text-3xl font-bold mb-2">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-300">
                       ✨ PASSAPORTE DA MISSÃO ✨
                     </span>
-                  </motion.h2>
+                  </h2>
 
                   {/* Subtitle */}
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="text-white/70 text-sm md:text-base mb-2"
-                  >
+                  <p className="text-white/70 text-sm md:text-base mb-2">
                     O Multiverso espera por você!
-                  </motion.p>
+                  </p>
 
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                    className="text-white/50 text-xs md:text-sm mb-8"
-                  >
+                  <p className="text-white/50 text-xs md:text-sm mb-6">
                     Prepare o sorriso para uma aventura inesquecível
-                  </motion.p>
+                  </p>
 
                   {/* Ticket Details */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.7 }}
-                    className="bg-black/20 rounded-xl p-4 mb-6 border border-white/5"
-                  >
+                  <div className="bg-black/20 rounded-xl p-4 mb-6 border border-white/5">
                     <div className="flex items-center justify-between text-xs text-white/40 mb-2">
                       <span>DESTINO</span>
                       <span>DATA</span>
@@ -220,77 +147,43 @@ export const MagicTicketModal = ({ isOpen, onClose }: MagicTicketModalProps) => 
                       </span>
                       <span>A Definir</span>
                     </div>
-                  </motion.div>
+                  </div>
 
-                  {/* Confirm Button */}
-                  <motion.button
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                  {/* Confirm Button - simplified */}
+                  <button
                     onClick={handleConfirm}
-                    className="relative w-full group"
+                    className="relative w-full group active:scale-[0.98] transition-transform"
                   >
-                    {/* Button Glow */}
-                    <motion.div
-                      className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-green-400 via-emerald-500 to-green-400 opacity-70 blur-sm group-hover:opacity-100 transition-opacity"
-                      animate={{
-                        backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                      }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                      style={{ backgroundSize: '200% 200%' }}
-                    />
+                    {/* Static Button Glow */}
+                    <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-green-400 via-emerald-500 to-green-400 opacity-70 blur-sm group-hover:opacity-100 transition-opacity" />
                     
                     {/* Button Content */}
                     <div className="relative flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-green-500 via-emerald-600 to-green-500 text-white font-bold text-sm md:text-base overflow-hidden">
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"
-                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                       <MessageCircle className="w-5 h-5" />
                       <span>Confirmar Embarque no WhatsApp</span>
                     </div>
-                  </motion.button>
+                  </button>
 
                   {/* Helper Text */}
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1 }}
-                    className="text-white/30 text-xs mt-4"
-                  >
+                  <p className="text-white/30 text-xs mt-4">
                     Clique para abrir o WhatsApp e falar diretamente com a Base
-                  </motion.p>
+                  </p>
                 </div>
 
                 {/* Bottom Decorative Pattern */}
-                <div className="h-3 bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-400 relative overflow-hidden">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                    animate={{ x: ['-100%', '100%'] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
-                </div>
+                <div className="h-3 bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-400" />
               </div>
 
-              {/* Floating particles around ticket */}
-              {[...Array(6)].map((_, i) => (
-                <motion.div
+              {/* Simplified floating particles - fewer and slower */}
+              {[...Array(4)].map((_, i) => (
+                <div
                   key={i}
-                  className="absolute w-2 h-2 rounded-full bg-yellow-400"
+                  className="absolute w-1.5 h-1.5 rounded-full bg-yellow-400/60 animate-pulse"
                   style={{
-                    top: `${20 + Math.random() * 60}%`,
-                    left: i % 2 === 0 ? '-20px' : 'calc(100% + 20px)',
-                  }}
-                  animate={{
-                    y: [0, -20, 0],
-                    opacity: [0, 1, 0],
-                    scale: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    delay: i * 0.2,
-                    repeat: Infinity,
+                    top: `${25 + i * 15}%`,
+                    left: i % 2 === 0 ? '-10px' : 'calc(100% + 10px)',
+                    animationDelay: `${i * 0.3}s`,
                   }}
                 />
               ))}
